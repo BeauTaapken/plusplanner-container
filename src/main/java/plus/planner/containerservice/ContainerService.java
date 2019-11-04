@@ -1,13 +1,13 @@
-package plus.planner.api.plusplannerapi;
+package plus.planner.containerservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PlusplannerapiApplication {
+public class ContainerService {
 
     public static void main(String[] args) {
-        SpringApplication.run(PlusplannerapiApplication.class, args);
+        SpringApplication.run(ContainerService.class, args);
     }
 
 }
