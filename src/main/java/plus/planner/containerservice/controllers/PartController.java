@@ -22,7 +22,7 @@ public class PartController {
     }
 
     @RequestMapping(path = "/create/{part}")
-    public void createSubPart(@PathVariable String part) {
+    public void createPart(@PathVariable String part) {
         try {
             repo.save(mapper.readValue(part, Part.class));
         } catch (IOException e) {
@@ -31,7 +31,7 @@ public class PartController {
     }
 
     @RequestMapping(path = "/update/{part}")
-    public void updateSubPart(@PathVariable String part) {
+    public void updatePart(@PathVariable String part) {
         try {
             repo.save(mapper.readValue(part, Part.class));
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class PartController {
     }
 
     @RequestMapping(path = "/delete/{partid}")
-    public void deleteSubPart(@PathVariable Long partid){
+    public void deletePart(@PathVariable Long partid){
         repo.deleteById(partid);
     }
 }
