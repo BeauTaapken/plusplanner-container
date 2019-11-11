@@ -53,7 +53,7 @@ public class ComponentController {
                 URL url = null;
                 URLConnection conn = null;
                 try {
-                    url = new URL("http://localhost:8081/SubPart/read/" + p.getPartid());
+                    url = new URL("http://localhost:8081/subpart/read/" + p.getPartid());
                     conn = url.openConnection();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
