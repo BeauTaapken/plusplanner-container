@@ -19,21 +19,21 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("ContainerService/Component")
+@RequestMapping("containerservice/component")
 @RestController
 public class ComponentController {
     @Autowired
-    PartRepository partRepo;
+    private PartRepository partRepo;
     @Autowired
-    ComponentRepository componentRepo;
-    ObjectMapper mapper;
+    private ComponentRepository componentRepo;
+    private ObjectMapper mapper;
 
     ComponentController(){
         mapper = new ObjectMapper();
     }
 
     @RequestMapping(path = "/create/{component}")
-    public void createSubPart(@PathVariable String component) {
+    public void createComponent(@PathVariable String component) {
         try {
             componentRepo.save(mapper.readValue(component, Component.class));
         } catch (IOException e) {
@@ -42,7 +42,7 @@ public class ComponentController {
     }
 
     @RequestMapping(path = "/read/{projectid}")
-    public String readSubPart(@PathVariable Long projectid) throws IOException {
+    public String readComponent(@PathVariable Long projectid) throws IOException {
         List<Component> components = componentRepo.findAll();
         components = components.stream().filter(x -> x.getComponentid() == projectid).collect(Collectors.toList());
         for (Component c:
@@ -53,7 +53,7 @@ public class ComponentController {
                 URL url = null;
                 URLConnection conn = null;
                 try {
-                    url = new URL("http://localhost:8081/SubPart/read/" + p.getPartid());
+                    url = new URL("http://localhost:8081/subpart/read/" + p.getPartid());
                     conn = url.openConnection();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -76,7 +76,7 @@ public class ComponentController {
     }
 
     @RequestMapping(path = "/update/{component}")
-    public void updateSubPart(@PathVariable String component) {
+    public void updateComponent(@PathVariable String component) {
         try {
             componentRepo.save(mapper.readValue(component, Component.class));
         } catch (IOException e) {
@@ -85,7 +85,7 @@ public class ComponentController {
     }
 
     @RequestMapping(path = "/delete/{componentid}")
-    public void deleteSubPart(@PathVariable Long componentid){
+    public void deleteComponent(@PathVariable Long componentid){
         componentRepo.deleteById(componentid);
     }
 }
