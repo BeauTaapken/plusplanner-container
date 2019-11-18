@@ -72,6 +72,7 @@ public class ComponentController {
         String json = mapper.writeValueAsString(components);
         json = json.replace("\"[", "[");
         json = json.replace("]\"", "]");
+        json = json.replace("\\\"", "\"");
         return json;
     }
 
