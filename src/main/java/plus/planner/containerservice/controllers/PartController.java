@@ -10,7 +10,7 @@ import plus.planner.containerservice.repository.PartRepository;
 
 import java.io.IOException;
 
-@RequestMapping("containerService/part")
+@RequestMapping("containerservice/part")
 @RestController
 public class PartController {
     @Autowired
