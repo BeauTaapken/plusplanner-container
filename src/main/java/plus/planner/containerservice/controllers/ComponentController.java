@@ -1,7 +1,11 @@
 package plus.planner.containerservice.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +14,8 @@ import plus.planner.containerservice.model.Part;
 import plus.planner.containerservice.repository.ComponentRepository;
 import plus.planner.containerservice.repository.PartRepository;
 
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,10 +32,12 @@ public class ComponentController {
     private PartRepository partRepo;
     @Autowired
     private ComponentRepository componentRepo;
+    private Session session;
     private ObjectMapper mapper;
 
     ComponentController(){
         mapper = new ObjectMapper();
+        Object o = /*((Session)*/Persistence.createEntityManagerFactory("contservice");//.createEntityManager().getDelegate()).unwrap(Session.class);
     }
 
     @RequestMapping(path = "/create/{component}")
@@ -43,11 +51,11 @@ public class ComponentController {
 
     @RequestMapping(path = "/read/{projectid}")
     public String readComponent(@PathVariable Long projectid) throws IOException {
-        List<Component> components = componentRepo.findAll();
+        List<Component> components = session.createSQLQuery("CALL getcomponents(:projectid)").addEntity(Component.class).setParameter("projectid", projectid).list();
         components = components.stream().filter(x -> x.getComponentid() == projectid).collect(Collectors.toList());
         for (Component c:
              components) {
-            c.setParts(partRepo.findAll());
+            c.setParts(session.createSQLQuery("CALL getparts(:componentid)").addEntity(Part.class).setParameter("componentid", c.getComponentid()).list());
             for (Part p :
                     c.getParts()) {
                 URL url = null;
