@@ -1,4 +1,4 @@
-package plus.planner.containerservice.config;
+package plus.planner.containerservice.controllers;
 
 
 import org.springframework.context.annotation.Configuration;

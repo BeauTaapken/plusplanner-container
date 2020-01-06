@@ -9,7 +9,7 @@ import plus.planner.containerservice.model.Part;
 import java.util.List;
 
 @Repository
-public interface PartRepository extends JpaRepository<Part, Long> {
-    @Query("SELECT p FROM Part p WHERE p.componentid = :componentid")
-    List<Part> findByComponentId(@Param("componentid") Long componentid);
+public interface PartRepository extends JpaRepository<Part, String> {
+    @Query("SELECT p FROM Part p WHERE p.projectid = :projectid")
+    List<Part> findByProjectId(@Param("projectid") String projectid);
 }

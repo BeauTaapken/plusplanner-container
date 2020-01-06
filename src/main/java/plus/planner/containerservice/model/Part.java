@@ -17,10 +17,11 @@ import javax.persistence.*;
 @EntityListeners(AuditingEntityListener.class)
 public class Part {
     @Id
-    private Long partid;
-    private Long componentid;
+    private String partid;
+    private String projectid;
     private String partname;
     private String enddate;
+    private String url;
     @Transient
     private String subparts;
 }
