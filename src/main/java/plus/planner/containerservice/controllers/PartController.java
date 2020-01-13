@@ -10,7 +10,7 @@ import plus.planner.containerservice.repository.PartRepository;
 
 import java.util.List;
 
-@RequestMapping("containerservice/part")
+@RequestMapping("/part")
 @RestController
 public class PartController {
     private final Logger logger = LoggerFactory.getLogger(PartController.class);
