@@ -23,7 +23,7 @@ public class PartController {
         this.restTemplate = restTemplate;
     }
 
-    @RequestMapping(path = "/create/{part}", method = RequestMethod.POST)
+    @RequestMapping(path = "/create", method = RequestMethod.POST)
     public void createPart(@RequestBody Part part) {
         logger.info("saving part: " + part.getPartid());
         repo.save(part);
