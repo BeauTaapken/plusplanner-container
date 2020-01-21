@@ -1,5 +1,6 @@
 package plus.planner.containerservice.model;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,6 @@ public class Part {
     private String enddate;
     private String url;
     @Transient
+    @JsonRawValue
     private String subparts;
 }
