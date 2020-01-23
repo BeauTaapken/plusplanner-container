@@ -42,7 +42,7 @@ public class PartController {
         for (Part p :
                 parts) {
             logger.info("getting subparts for part: " + p.getPartid());
-            p.setSubparts(restTemplate.getForObject("https://plus-planner-subpart-service/read/" +  p.getPartid(), String.class));
+            p.setSubparts(restTemplate.getForObject("https://plus-planner-subpart-service/subpart/read/" +  p.getPartid(), String.class));
         }
         logger.info("returning parts");
         return parts;
