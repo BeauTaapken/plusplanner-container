@@ -1,5 +1,6 @@
 package plus.planner.containerservice.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import plus.planner.containerservice.model.Part;
 import plus.planner.containerservice.repository.PartRepository;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequestMapping("/part")
@@ -16,15 +18,18 @@ public class PartController {
     private final Logger logger = LoggerFactory.getLogger(PartController.class);
     private final PartRepository repo;
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public PartController(PartRepository repo, RestTemplate restTemplate) {
+    public PartController(PartRepository repo, RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.repo = repo;
         this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
     }
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public void createPart(@RequestBody Part part) {
+    public void createPart(@RequestBody String prt) throws IOException {
+        final Part part = objectMapper.readValue(prt, Part.class);
         logger.info("saving part: " + part.getPartid());
         repo.save(part);
         logger.info("saved part");
