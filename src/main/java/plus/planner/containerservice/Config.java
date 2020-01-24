@@ -34,8 +34,6 @@ public class Config {
 
         requestFactory.setHttpClient(httpClient);
 
-        final RestTemplate restTemplate = new RestTemplate(requestFactory);
-
-        return restTemplate;
+        return new RestTemplate(requestFactory);
     }
 }
